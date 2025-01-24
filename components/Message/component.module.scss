@@ -1,0 +1,41 @@
+.message {
+    // position: fixed;
+    // top: 2rem;
+    // left: 50%;
+    z-index: 100;
+
+    border-radius: 8px;
+
+    max-width: 480px;
+    text-align: center;
+    overflow: hidden;
+
+    background-color: var(--background-secondary);
+}
+
+.content {
+    padding: 1rem;
+}
+
+.indicator {
+    background: var(--accent-2);
+    height: 1px;
+}
+
+.error {
+    $color: #dc2626;
+    color: $color;
+    background: rgba($color: $color, $alpha: 0.1);
+}
+
+.warning {
+    $color: #ca8a04;
+    background: rgba($color: $color, $alpha: 0.1);
+    color: $color;
+}
+
+.success {
+    // $color: #16a34a;
+    background: rgba(var(--success), 0.1);
+    color: rgb(var(--success));
+}

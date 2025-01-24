@@ -1,0 +1,68 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    .input {
+        background: rgb(var(--background-secondary));
+        border: 1px solid rgb(var(--border));
+        border-radius: 0.5rem;
+
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 6px 12px;
+        cursor: pointer;
+
+        input {
+            border: none;
+            outline: none;
+            background: transparent;
+            color: inherit;
+
+            font-size: inherit;
+            height: 32px;
+
+            font-family: inherit;
+            width: 100%;
+            &::placeholder {
+                color: rgb(var(--text-placeholder));
+            }
+        }
+    }
+
+    .icon {
+        color: rgb(var(--success));
+    }
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: rgb(var(--text-muted));
+    cursor: pointer;
+}
+
+.badge {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+
+    background: rgb(var(--background-secondary));
+    border: 1px solid rgb(var(--border));
+
+    color: rgb(var(--success));
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px;
+    border-radius: 8px;
+
+    svg {
+        $size: 18px;
+        width: $size;
+        height: $size;
+    }
+}

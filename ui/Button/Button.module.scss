@@ -1,0 +1,79 @@
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    cursor: pointer;
+}
+
+.button {
+    position: relative;
+    overflow: hidden;
+    &.fullWidth {
+        width: 100%;
+    }
+    svg {
+        $size: 22px;
+        width: $size;
+        height: $size;
+    }
+
+    .loading {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgb(var(--accent));
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: center;
+
+        .icon {
+            display: inline-flex;
+        }
+
+        svg {
+            $size: 20px;
+            width: $size;
+            height: $size;
+            path {
+                stroke: white;
+            }
+        }
+    }
+}
+
+.primary {
+    background: rgb(var(--accent));
+    color: white;
+}
+
+.secondary {
+    background: rgb(var(--background-secondary));
+    border: 1px solid rgb(var(--border));
+}
+
+.tertiary {
+    color: rgb(var(--foreground));
+    background: transparent;
+}
+
+.md {
+    height: 48px;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    padding-inline: 16px;
+}
+
+.sm {
+    $height: 40px;
+    height: $height;
+    border-radius: 6px;
+
+    &.iconOnly {
+        width: $height;
+        max-width: $height;
+    }
+}

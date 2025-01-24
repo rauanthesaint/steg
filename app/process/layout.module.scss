@@ -1,0 +1,47 @@
+$spacing: 0.25rem;
+$tab-brs: 0.375rem;
+
+.tabsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5rem;
+}
+.tabs {
+    background: rgb(var(--background-tertiary));
+    border-radius: $tab-brs + $spacing;
+    display: flex;
+    gap: $spacing;
+    padding: $spacing;
+    position: relative;
+
+    width: 100%;
+
+    .tab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 2;
+        gap: 0.5rem;
+        padding: 8px;
+        width: 100%;
+        border-radius: $tab-brs;
+        transition: color 100ms linear;
+        font-size: 14px;
+    }
+
+    .curtain {
+        height: calc(100% - 2 * $spacing);
+        background: rgb(var(--background-secondary));
+        position: absolute;
+        z-index: 1;
+        border-radius: $tab-brs;
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .tabs {
+        max-width: 320px;
+    }
+}

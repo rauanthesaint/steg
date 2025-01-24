@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    textarea {
+        resize: none;
+        border: none;
+        outline: none;
+        background: transparent;
+        color: inherit;
+
+        font-size: inherit;
+        font-family: inherit;
+
+        padding: 14px 1rem;
+        border-radius: 0.5rem;
+        background: rgb(var(--background-secondary));
+        border: 1px solid rgb(var(--border));
+        &::placeholder {
+            color: rgb(var(--text-placeholder));
+        }
+    }
+
+    cursor: pointer;
+}
