@@ -14,13 +14,18 @@
         font-family: inherit;
 
         padding: 14px 1rem;
-        border-radius: 0.5rem;
-        background: rgb(var(--background-secondary));
-        border: 1px solid rgb(var(--border));
+        border-radius: 0.25rem;
+        // background: var(--background);
+        background: white;
+        border: 1px solid var(--border);
         &::placeholder {
-            color: rgb(var(--text-placeholder));
+            color: var(--foreground-secondary);
         }
     }
 
     cursor: pointer;
+}
+
+.error {
+    color: hsla(var(--error), 1);
 }

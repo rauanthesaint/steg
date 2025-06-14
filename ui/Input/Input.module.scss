@@ -3,9 +3,13 @@
     flex-direction: column;
     gap: 0.25rem;
     .input {
-        background: rgb(var(--background-secondary));
-        border: 1px solid rgb(var(--border));
+        background: white;
+        border: 1px solid var(--border);
         border-radius: 0.5rem;
+
+        &:focus-within {
+            border-color: var(--foreground);
+        }
 
         display: flex;
         align-items: center;
@@ -25,7 +29,7 @@
             font-family: inherit;
             width: 100%;
             &::placeholder {
-                color: rgb(var(--text-placeholder));
+                color: var(--foreground-secondary);
             }
         }
     }

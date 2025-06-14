@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+body {
+    font-family: 'Geist', sans-serif;
+}
+
+h1 {
+    $max: 1.75rem;
+    $min: 1.5rem;
+
+    font-size: clamp($min, 4vw, $max);
+    font-weight: 600;
+}
+
+h2 {
+    $max: 1.5rem;
+    $min: 1.25rem;
+    font-size: clamp($min, 4vw, $max);
+    font-weight: 500;
+}
+
+.muted {
+    color: var(--foreground-secondary);
+}

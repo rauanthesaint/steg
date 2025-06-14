@@ -1,0 +1,25 @@
+.preview {
+    border-style: dashed;
+    border-radius: 8px;
+
+    border: 1px dashed var(--foreground-secondary);
+
+    padding: 12px;
+
+    &.inactive {
+        min-height: 200px;
+        color: var(--foreground-secondary);
+        display: grid;
+        place-content: center;
+        place-items: center;
+    }
+
+    .preview__card {
+        background: var(--background-secondary);
+        display: flex;
+        gap: 12px;
+    }
+    .preview__image {
+        border-radius: 8px;
+    }
+}

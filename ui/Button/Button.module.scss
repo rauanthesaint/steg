@@ -5,6 +5,11 @@
     gap: 0.5rem;
 
     cursor: pointer;
+
+    transition: all 100ms linear;
+    &:active {
+        transform: scale(0.99);
+    }
 }
 
 .button {
@@ -46,7 +51,7 @@
 }
 
 .primary {
-    background: rgb(var(--accent));
+    background: var(--foreground);
     color: white;
 }
 
@@ -63,7 +68,7 @@
 .md {
     height: 48px;
     font-weight: 500;
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
     padding-inline: 16px;
 }
 

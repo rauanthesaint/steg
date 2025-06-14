@@ -1,5 +1,12 @@
 .container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
     input {
         display: none;
     }
+}
+
+.error {
+    color: hsl(var(--error));
 }

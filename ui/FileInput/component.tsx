@@ -1,15 +1,33 @@
 import { FC, InputHTMLAttributes } from 'react'
 import s from './component.module.scss'
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form'
 
-const FileInput: FC<InputHTMLAttributes<HTMLInputElement>> = ({
+interface FileInputProps {
+    register?: UseFormRegisterReturn
+    error?: FieldError
+}
+
+const FileInput: FC<InputHTMLAttributes<HTMLInputElement> & FileInputProps> = ({
     name,
     onChange,
     children,
+    register,
+    error,
 }) => {
     return (
         <label className={s.container} htmlFor={name}>
             {children}
-            <input onChange={onChange} id={name} type="file" name={name} />
+            <input
+                id={name}
+                type="file"
+                name={name}
+                {...register}
+                onChange={(e) => {
+                    register?.onChange?.(e)
+                    onChange?.(e)
+                }}
+            />
+            {error && <span className={s.error}>{error.message}</span>}
         </label>
     )
 }

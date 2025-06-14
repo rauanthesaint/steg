@@ -1,0 +1,7 @@
+.frame {
+    border-radius: 8px;
+    background: var(--background-secondary);
+    border: 1px solid var(--border);
+
+    padding: clamp(0.5rem, 2vw, 1rem);
+}

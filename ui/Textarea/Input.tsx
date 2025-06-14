@@ -14,6 +14,8 @@ const Input: FC<InputProps & TextareaAutosizeProps> = ({
     readOnly,
     onChange,
     value,
+    register,
+    error,
 }) => {
     return (
         <label htmlFor={name} className={s.container}>
@@ -26,7 +28,9 @@ const Input: FC<InputProps & TextareaAutosizeProps> = ({
                 readOnly={readOnly}
                 value={value}
                 onChange={onChange}
+                {...register}
             />
+            {error && <span className={s.error}>{error.message}</span>}
         </label>
     )
 }
