@@ -4,7 +4,6 @@ export const downloadFile = (
     type: string
 ) => {
     try {
-        // Convert base64 to blob
         const byteCharacters = atob(base64Data)
         const byteNumbers = new Array(byteCharacters.length)
         for (let i = 0; i < byteCharacters.length; i++) {

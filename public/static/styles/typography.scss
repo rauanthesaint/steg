@@ -19,6 +19,13 @@ h2 {
     font-weight: 500;
 }
 
+h3 {
+    $max: 1.25rem;
+    $min: 1rem;
+    font-size: clamp($min, 4vw, $max);
+    font-weight: 500;
+}
+
 .muted {
     color: var(--foreground-secondary);
 }

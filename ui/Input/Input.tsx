@@ -18,8 +18,9 @@ const Input: FC<InputProps> = ({
     type,
     leading,
     value,
-    onChange,
     readOnly,
+    register,
+    error,
 }) => {
     const [isCopied, setIsCopied] = useState<boolean>(false)
     const handleCopyButton = () => {
@@ -44,11 +45,11 @@ const Input: FC<InputProps> = ({
                 {leading}
                 <input
                     value={value}
-                    onChange={onChange}
                     type={type}
                     placeholder={placeholder}
                     name={name}
                     readOnly={readOnly}
+                    {...register}
                 />
 
                 {readOnly && (
@@ -67,6 +68,7 @@ const Input: FC<InputProps> = ({
                     </button>
                 )}
             </div>
+            {error && <span className={s.error}>{error.message}</span>}
 
             {readOnly && (
                 <AnimatePresence>

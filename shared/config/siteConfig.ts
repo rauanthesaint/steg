@@ -10,12 +10,12 @@ export const siteConfig: Site = {
 
     tools: [
         {
-            title: 'Encrypt',
-            href: '/process/encrypt',
+            title: 'Encode',
+            href: '/process/encode',
         },
         {
-            title: 'Decrypt',
-            href: '/process/decrypt',
+            title: 'Decode',
+            href: '/process/decode',
         },
     ],
 }

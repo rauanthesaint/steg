@@ -70,3 +70,6 @@
         height: $size;
     }
 }
+.error {
+    color: hsla(var(--error), 1);
+}

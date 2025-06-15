@@ -1,7 +1,7 @@
 'use client'
-import { FileInput, Textarea } from '@/ui'
+import { FileInput, Input, Textarea } from '@/ui'
 import styles from './encryptionForm.styles.module.scss'
-import { Puzzle, Upload } from 'iconoir-react/regular'
+import { Key, Upload } from 'iconoir-react/regular'
 import { Spark } from 'iconoir-react/solid'
 import { useForm } from 'react-hook-form'
 import { useCallback, useState } from 'react'
@@ -14,7 +14,6 @@ import {
 import { encryptData } from '@/shared/utils/api/requests'
 import { downloadFile } from '@/shared/utils/api/downloadFile'
 import { useNotifications } from '@/app/providers/NotificationProvider'
-import Select from '@/shared/components/select/ui/select.component'
 import { createUploadedFile } from '@/app/providers/StoreProvider'
 
 import { Button } from '@/shared/components'
@@ -22,6 +21,7 @@ import { Button } from '@/shared/components'
 type Values = {
     text: string
     file: File
+    password: string
 }
 
 export default function EncryptionForm() {
@@ -52,18 +52,20 @@ export default function EncryptionForm() {
             file: uploadedFile.file,
         }
 
+        console.log(submitData)
+
         setIsSubmitting(true)
         try {
             const result = await encryptData(submitData)
             if (result) {
-                // addNotification({
-                //     type: 'success',
-                //     title: 'Success!',
-                //     message: 'Message Encrypted successfully',
-                // })
-                // downloadFile(result.outputFile, result.filename, 'image/png') // Handle success (e.g., show success message, download file, etc.)
-                // clearFile()
-                console.log(result)
+                addNotification({
+                    type: 'success',
+                    title: 'Success!',
+                    message: 'Message Encrypted successfully',
+                })
+                const { file } = result.data
+                downloadFile(file.content, file.filename, file.mimetype) // Handle success (e.g., show success message, download file, etc.)
+                clearFile()
             }
         } catch (error) {
             console.error('Encryption failed:', error)
@@ -77,9 +79,6 @@ export default function EncryptionForm() {
         }
     }
 
-    // Add this import at the top of your file
-
-    // Then replace your handleFileChange with this cleaner version:
     const handleFileChange = useCallback(
         async (file: File | null) => {
             if (file) {
@@ -129,26 +128,6 @@ export default function EncryptionForm() {
                 </Button>
             </FileInput>
 
-            <Select
-                leading={<Puzzle />}
-                label="Select Encoding Algorithm"
-                data={[
-                    {
-                        title: 'LSB',
-                        value: 'lsb',
-                    },
-                    {
-                        title: 'RSA',
-                        value: 'rsa',
-                    },
-                    {
-                        title: 'HI',
-                        value: 'hi',
-                        default: true,
-                    },
-                ]}
-            />
-
             <Textarea
                 register={register('text', {
                     required: 'Text to encrypt is required',
@@ -157,6 +136,14 @@ export default function EncryptionForm() {
                 minRows={10}
                 label="Text to encrypt"
                 placeholder="Lorem Ipsum..."
+            />
+
+            <Input
+                type="password"
+                label="Password"
+                placeholder="Optional"
+                leading={<Key />}
+                register={register('password')}
             />
 
             {errors.root && (

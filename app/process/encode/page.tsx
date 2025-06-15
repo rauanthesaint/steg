@@ -14,14 +14,6 @@ export default function Page() {
                 <EncryptionForm />
                 <FilePreview uploadedFile={uploadedFile} />
             </Frame>
-            <Frame className={styles.description}>
-                <h2>How to Use?</h2>
-                <ul>
-                    <li>Step 1: Upload the Image</li>
-                    <li>Step 2: Enter the Text to encrypt</li>
-                    <li>Step 3: Click the Encrypt button</li>
-                </ul>
-            </Frame>
         </main>
     )
 }

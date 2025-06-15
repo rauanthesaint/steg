@@ -24,3 +24,16 @@
         }
     }
 }
+
+.messageContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    & > div {
+        padding: 8px;
+        border-radius: 0.25rem;
+        border: 1px dashed var(--foreground);
+        line-break: anywhere;
+    }
+}
