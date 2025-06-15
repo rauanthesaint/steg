@@ -7,6 +7,7 @@ import '@/public/static/styles/typography.scss'
 
 import { siteConfig } from '@/shared/config/siteConfig'
 import { StoreProvider } from './providers/StoreProvider'
+import { NotificationProvider } from './providers/NotificationProvider'
 
 export const metadata: Metadata = {
     title: siteConfig.title,
@@ -21,7 +22,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <StoreProvider>{children}</StoreProvider>
+                <NotificationProvider>
+                    <StoreProvider>{children}</StoreProvider>
+                </NotificationProvider>
             </body>
         </html>
     )

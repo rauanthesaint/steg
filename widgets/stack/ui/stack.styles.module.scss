@@ -1,0 +1,83 @@
+.container {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.item {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    min-width: 320px;
+    max-width: 420px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+.item:hover {
+    transform: translateY(-1px);
+}
+
+.content {
+    flex: 1;
+    min-width: 0;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.4;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.message {
+    font-size: 13px;
+    line-height: 1.4;
+    opacity: 0.8;
+    margin: 0;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+    flex-shrink: 0;
+}
+
+.closeButton:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.progressContainer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.progressBar {
+    height: 100%;
+    transition: opacity 0.2s ease;
+}
+
+/* Animation for progress bar */
+.progressBar {
+    transform-origin: left;
+}

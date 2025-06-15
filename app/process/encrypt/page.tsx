@@ -3,17 +3,16 @@
 import { Frame } from '@/shared/components'
 import { EncryptionForm, FilePreview } from '@/widgets'
 import styles from './page.module.scss'
-import { useUploadedImage } from '@/app/providers/StoreProvider'
+import { useUploadedFile } from '@/app/providers/StoreProvider'
 
 export default function Page() {
-    const { uploadedImage } = useUploadedImage()
-
+    const { uploadedFile } = useUploadedFile()
     return (
         <main>
             <h1>Encrypt your message</h1>
             <Frame className={styles.content}>
                 <EncryptionForm />
-                <FilePreview uploadedImage={uploadedImage} />
+                <FilePreview uploadedFile={uploadedFile} />
             </Frame>
             <Frame className={styles.description}>
                 <h2>How to Use?</h2>

@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react'
 import { siteConfig } from '@/shared/config/siteConfig'
-import { Toolbar } from '@/widgets'
+import { Header, Toolbar } from '@/widgets'
 import { Container } from '@/shared/components'
 
 export default function Layout({
@@ -10,6 +10,7 @@ export default function Layout({
 }: Readonly<{ children: ReactNode }>) {
     return (
         <>
+            <Header />
             <Toolbar tools={siteConfig.tools} />
             <Container>{children}</Container>
         </>

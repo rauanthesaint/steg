@@ -1,0 +1,58 @@
+.button {
+    height: 2.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.button.primary {
+    background: var(--foreground);
+    color: var(--background);
+}
+.button.secondary {
+    border: 1px solid var(--foreground);
+    background: var(--background-tertiary);
+}
+
+// States
+.button:disabled {
+    pointer-events: none;
+    color: var(--foreground-disabled);
+    background: var(--background-disabled);
+}
+
+.button.loading {
+    opacity: 0.8;
+    pointer-events: none;
+    .loader {
+        animation: spin 1.5s linear infinite forwards;
+        will-change: transform;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .button {
+        height: 3rem;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// Interactivity
+.button {
+    cursor: pointer;
+    transition: transform 100ms linear;
+    &:active {
+        transform: scale(0.99);
+    }
+}

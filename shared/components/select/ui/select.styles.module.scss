@@ -1,0 +1,52 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    .contentContainer {
+        height: 2.5rem;
+        padding-inline: 0.75rem;
+        border: 1px solid var(--border);
+        &:focus {
+            border-color: var(--foreground);
+        }
+
+        background: white;
+
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border-radius: 0.25rem;
+    }
+
+    position: relative;
+
+    .list {
+        position: absolute;
+        top: calc(100% + 8px);
+        z-index: 100;
+
+        width: 100%;
+
+        border: 1px solid var(--foreground);
+        background: white;
+        border-radius: 0.25rem;
+
+        .listItem {
+            height: 2rem;
+            padding-inline: 12px;
+            display: flex;
+            align-items: center;
+
+            &:not(:last-child) {
+                border-bottom: 1px solid var(--border);
+            }
+        }
+    }
+
+    .curtain {
+        position: fixed;
+        inset: 0;
+        z-index: 99;
+    }
+}

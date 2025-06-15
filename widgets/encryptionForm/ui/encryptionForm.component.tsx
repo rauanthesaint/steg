@@ -1,55 +1,34 @@
 'use client'
-import { Button, FileInput, Textarea } from '@/ui'
+import { FileInput, Textarea } from '@/ui'
 import styles from './encryptionForm.styles.module.scss'
-import { Upload } from 'iconoir-react/regular'
+import { Puzzle, Upload } from 'iconoir-react/regular'
 import { Spark } from 'iconoir-react/solid'
 import { useForm } from 'react-hook-form'
 import { useCallback, useState } from 'react'
 import {
-    useUploadedImage,
+    useUploadedFile,
+    // useUploadedImage,
     useUploadStatus,
 } from '@/app/providers/StoreProvider'
-import { getImageDimensions } from '@/entity/imageFile/lib/utils'
+// import { getImageDimensions } from '@/entity/imageFile/lib/utils'
 import { encryptData } from '@/shared/utils/api/requests'
+import { downloadFile } from '@/shared/utils/api/downloadFile'
+import { useNotifications } from '@/app/providers/NotificationProvider'
+import Select from '@/shared/components/select/ui/select.component'
+import { createUploadedFile } from '@/app/providers/StoreProvider'
+
+import { Button } from '@/shared/components'
 
 type Values = {
     text: string
     file: File
 }
 
-const downloadFile = (base64Data: string, filename: string) => {
-    try {
-        // Convert base64 to blob
-        const byteCharacters = atob(base64Data)
-        const byteNumbers = new Array(byteCharacters.length)
-        for (let i = 0; i < byteCharacters.length; i++) {
-            byteNumbers[i] = byteCharacters.charCodeAt(i)
-        }
-        const byteArray = new Uint8Array(byteNumbers)
-        const blob = new Blob([byteArray], { type: 'image/png' })
-
-        // Create download link
-        const url = URL.createObjectURL(blob)
-        const link = document.createElement('a')
-        link.href = url
-        link.download = filename
-
-        // Trigger download
-        document.body.appendChild(link)
-        link.click()
-
-        // Cleanup
-        document.body.removeChild(link)
-        URL.revokeObjectURL(url)
-    } catch (error) {
-        console.error('Error downloading file:', error)
-    }
-}
-
 export default function EncryptionForm() {
-    const { setUploadedImage, clearImage, uploadedImage } = useUploadedImage()
+    const { setUploadedFile, clearFile, uploadedFile } = useUploadedFile()
     const { setIsUploading } = useUploadStatus()
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const { addNotification } = useNotifications()
 
     const {
         register,
@@ -60,7 +39,7 @@ export default function EncryptionForm() {
     } = useForm<Values>({ mode: 'onSubmit' })
 
     const onSubmit = async (data: Values) => {
-        if (!uploadedImage) {
+        if (!uploadedFile) {
             setError('file', {
                 type: 'required',
                 message: 'File is required',
@@ -70,64 +49,63 @@ export default function EncryptionForm() {
 
         const submitData = {
             ...data,
-            file: uploadedImage.file,
+            file: uploadedFile.file,
         }
 
         setIsSubmitting(true)
         try {
             const result = await encryptData(submitData)
             if (result) {
-                console.log('Success:', result.message)
-                downloadFile(result.outputFile, result.filename) // Handle success (e.g., show success message, download file, etc.)
+                // addNotification({
+                //     type: 'success',
+                //     title: 'Success!',
+                //     message: 'Message Encrypted successfully',
+                // })
+                // downloadFile(result.outputFile, result.filename, 'image/png') // Handle success (e.g., show success message, download file, etc.)
+                // clearFile()
+                console.log(result)
             }
         } catch (error) {
             console.error('Encryption failed:', error)
-            // Handle error (e.g., show error message to user)
-            setError('root', {
-                type: 'server',
-                message: 'Failed to encrypt data. Please try again.',
+            addNotification({
+                type: 'error',
+                title: 'Error!',
+                message: 'Failed to encrypt data. Please try again',
             })
         } finally {
             setIsSubmitting(false)
         }
     }
 
+    // Add this import at the top of your file
+
+    // Then replace your handleFileChange with this cleaner version:
     const handleFileChange = useCallback(
         async (file: File | null) => {
             if (file) {
                 setIsUploading(true)
                 clearErrors('file') // Clear file validation error
                 try {
-                    const dimensions = await getImageDimensions(file)
-                    const reader = new FileReader()
-                    const dataUrl = await new Promise<string>(
-                        (resolve, reject) => {
-                            reader.onload = (e) => {
-                                const result = e.target?.result as string
-                                resolve(result)
-                            }
-                            reader.onerror = (error) => {
-                                reject(error)
-                            }
-                            reader.readAsDataURL(file)
-                        }
-                    )
-                    const imageData = {
-                        file,
-                        dataUrl,
-                        dimensions,
-                    }
-                    setUploadedImage(imageData)
+                    const uploadedFile = await createUploadedFile(file, {
+                        generateDataUrl: true, // You're using dataUrl in your form
+                        generateObjectUrl: true, // Better performance for display
+                        getDimensions: true, // You need dimensions for images
+                    })
+                    setUploadedFile(uploadedFile)
                 } catch (error) {
                     console.error('Error processing image:', error)
+                    setError('file', {
+                        type: 'manual',
+                        message: 'Failed to process image',
+                    })
                 } finally {
                     setIsUploading(false)
                 }
             } else {
-                clearImage()
+                clearFile()
             }
         },
-        [setUploadedImage, clearImage, setIsUploading, clearErrors]
+        [setUploadedFile, clearFile, setIsUploading, clearErrors, setError]
     )
 
     return (
@@ -145,11 +123,31 @@ export default function EncryptionForm() {
                     }
                 }}
             >
-                <div className={styles.uploadButton}>
-                    <span>Upload Image</span>
+                <Button asDiv variant="secondary">
+                    <span>Upload your File</span>
                     <Upload />
-                </div>
+                </Button>
             </FileInput>
+
+            <Select
+                leading={<Puzzle />}
+                label="Select Encoding Algorithm"
+                data={[
+                    {
+                        title: 'LSB',
+                        value: 'lsb',
+                    },
+                    {
+                        title: 'RSA',
+                        value: 'rsa',
+                    },
+                    {
+                        title: 'HI',
+                        value: 'hi',
+                        default: true,
+                    },
+                ]}
+            />
 
             <Textarea
                 register={register('text', {
@@ -165,8 +163,13 @@ export default function EncryptionForm() {
                 <div className={styles.errorMessage}>{errors.root.message}</div>
             )}
 
-            <Button type="submit" isFullWidth disabled={isSubmitting}>
-                <span>{isSubmitting ? 'Encrypting...' : 'Encrypt'}</span>
+            <Button
+                type="submit"
+                isLoading={isSubmitting}
+                disabled={isSubmitting}
+                isFullWidth
+            >
+                <span>Encrypt</span>
                 <Spark />
             </Button>
         </form>

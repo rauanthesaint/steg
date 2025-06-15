@@ -12,11 +12,18 @@
     --color-neutral-950: #0a0a0a;
 
     --error: 345, 100%, 56%;
+    --success: 160, 100%, 37%;
+    --warning: 44, 100%, 47%;
+    --info: 216, 100%, 58%;
 
     --background: var(--color-neutral-100);
     --background-secondary: var(--color-neutral-50);
+    --background-tertiary: white;
     --foreground: var(--color-neutral-950);
     --foreground-secondary: var(--color-neutral-500);
 
     --border: var(--color-neutral-300);
+
+    --background-disabled: var(--color-neutral-300);
+    --foreground-disabled: var(--color-neutral-600);
 }
